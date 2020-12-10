@@ -302,7 +302,7 @@ def regis():
         flash('User has been created')
         return redirect(url_for('login'))
     random = get_random_quote()
-    return render_template('reg_form.html', random_quote=random[1],
+    return render_template('regis.html', random_quote=random[1],
                            the_quoter=random[0], form=reg_form)
 
 
@@ -316,7 +316,7 @@ def login():
         flash(f'Welcome {user_name}!')
         return redirect(url_for('home'))
     random = get_random_quote()
-    return render_template('login_form.html', random_quote=random[1],
+    return render_template('login.html', random_quote=random[1],
                            the_quoter=random[0], form=log_form)
 
 

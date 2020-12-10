@@ -7,7 +7,7 @@
 <div class="row">
     <h2 class="text-center mt-5">Register</h2>
     <div class="col-6 offset-3">
-        <form action="{{ url_for('regis') }}" method="POST" novalidate class="validated-form">
+        <form action="{{ url_for('regis') }}" method="POST">
             <div class="mb-3">
                 <label class="form-label" for="first">Name</label>
                 {{ Display(form.full_name, 'Full Name') }}

@@ -19,10 +19,10 @@ from wtforms.validators import (DataRequired, Email, EqualTo, InputRequired,
 
 app = Flask(__name__)
 app.static_folder = 'static'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///onestep.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 db = SQLAlchemy(app)
 Bootstrap(app)
-app.secret_key = 'asfasf'
+app.secret_key = os.environ.get('SECRET_KEY')
 login = LoginManager(app)
 login.init_app(app)
 

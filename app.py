@@ -227,10 +227,11 @@ def order(list_id):
                            list_id=list_id, f1=task_form, f2=update, f3=complete_update, tasks=tasks)
 
 
-@app.route('/<list_id>/orderby/', methods=['GET', 'POST'])
+@app.route('/orderby/<list_id>', methods=['GET', 'POST'])
 def order_by(list_id):
     if not current_user.is_authenticated:
         return redirect(url_for('loginer'))
+    complete_update = UpdateTaskForm()
     update = UpdateTaskForm()
     task_form = TaskForm()
     colorof = List.query.filter_by(id=list_id).first()
@@ -250,7 +251,9 @@ def order_by(list_id):
             list_id=list_id).order_by(desc(Mission.important))
     else:
         tasks = Mission.query.filter_by(list_id=list_id)
-    return render_template('list_missions.html', random_quote=random[1], the_quoter=random[0], colorof=colorof, list_id=list_id, f1=task_form, f2=update, tasks=tasks)
+    return render_template('list_missions.html', random_quote=random[1],
+                           the_quoter=random[0], colorof=colorof, list_id=list_id,
+                           f1=task_form, f2=update, f3=complete_update, tasks=tasks)
 
 
 @app.route('/update_complete/<row_id>', methods=['GET', 'POST'])
@@ -405,4 +408,4 @@ def about_us():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

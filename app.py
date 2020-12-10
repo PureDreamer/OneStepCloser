@@ -13,7 +13,7 @@ from passlib.hash import pbkdf2_sha512
 from sqlalchemy import desc
 from wtforms import (BooleanField, PasswordField, SelectField, StringField,
                      SubmitField)
-from wtforms.fields.j25 import DateField, EmailField
+from wtforms.fields.html5 import DateField, EmailField
 from wtforms.validators import (DataRequired, Email, EqualTo, InputRequired,
                                 Length, Optional, ValidationError)
 
@@ -405,6 +405,6 @@ def about_us():
 
 
 if __name__ == "__main__":
-    db.create_all()
-    db.session.commit()
+    # db.create_all()
+    # db.session.commit()
     app.run()

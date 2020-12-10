@@ -1,0 +1,54 @@
+{% from 'macro.html' import Display %}
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+{% block content %}
+<h5>Hey {{ current_user.full_name }} enjoy your day</h5>
+<form action="{{ url_for('home') }}" , method="POST">
+    {{ Display(form.list_name, 'Name', autocomplete="off", autofocus=true) }}
+    {{ Display(form.color_choice, 'Choose a Color') }}
+
+    <div>
+        {{ form.submit_button }}
+    </div>
+    {{ form.csrf_token }}
+</form>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Creation Date</th>
+                <th>Color</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        {% if list_lists %}
+        {% for listos in list_lists %}
+        <tbody>
+            <tr>
+                <td>
+                    <h3><a href="{{ url_for('order', list_id=listos.id) }}">{{listos.list_name}}</a></h3>
+                </td>
+                <td>{{listos.creation_date}}</td>
+                <td>{{listos.list_color}}</td>
+                <td> <a href="/delete_list/{{listos.id}}" class="btn btn-danger btn-xs"
+                        onclick="return confirm('Are You Sure To Delete ?')">Delete</a></td>
+                <td>
+                    <form action="{{ url_for('update_list', list_id=listos.id) }}" method="POST"><button input
+                            type="submit" class="btn btn-success btn-xs" name='parameter'
+                            value="{{listos.id}}">Edit</button></form>
+                </td>
+            </tr>
+        </tbody>
+        {% else %}
+        <h1>Nothing to DO, add something will ya?</h1>
+        {% endfor %}
+        {% endif %}
+    </table>
+
+</div>
+</div>
+{% endblock %}

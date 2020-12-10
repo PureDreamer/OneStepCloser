@@ -1,0 +1,16 @@
+{% from 'macro.html' import Display %}
+{% extends "base.html" %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; background-color: #c93341;">About Me:</h1>
+<div class="wrapper">
+    {% for field in user_list %}
+    <div>
+        <h3><b> {{ field[0]}}:<br> {{field[1]}}</b></h3>
+    </div>
+    {% endfor %}
+</div>
+<a class="card-link btn btn-light" href="/profile/edit/">Edit</a>
+{% endblock %}

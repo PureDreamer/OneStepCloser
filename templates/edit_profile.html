@@ -1,0 +1,35 @@
+{% from 'macro.html' import Display %}
+{% extends "base.html" %}
+
+{% block title %} EDIT Profile {% endblock %}
+
+{% block content %}
+<div class="row d-inline">
+    <h2 class="text-center mt-5">Edit profile</h2>
+    <div class="col-6 offset-3">
+        <form action="{{ url_for('update_profile') }}" method="POST">
+            <div class="mb-3">
+                <label for="full_name" class="form-label">Full name</label>
+                {{ Display(form.full_name, 'Full name', autofocus=true) }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="City">City</label>
+                {{ Display(form.city, 'City') }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="Date of birth">Date of birth</label>
+                {{ Display(form.date_of_birth, 'Date of birth') }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="Date of birth">Spirit animal</label>
+                {{ Display(form.spirit_animal, 'Spirit animal') }}
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-secondary">{{ form.change_submit }}</button>
+                {{ form.csrf_token }}
+            </div>
+        </form>
+        <a class="btn btn-dark btn-sm" href="/">Back To Home Page</a>
+    </div>
+</div>
+{% endblock %}

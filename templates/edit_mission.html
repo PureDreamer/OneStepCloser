@@ -1,0 +1,53 @@
+{% from 'macro.html' import Display %}
+{% extends "base.html" %}
+
+{% block title %} EDIT List {% endblock %}
+
+{% block content %}
+<div class="row d-inline">
+    <h2 class="text-center mt-5">Edit Mission</h2>
+    <div class="col-6 offset-3">
+        <form action="{{ url_for('update_mission', mission_id=mission.id)}}" method="POST">
+            <div class="mb-3">
+                <label for="mission_name" class="form-label">Mission name</label>
+                {{ Display(form.mission, 'Mission name', autofocus=true) }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="color">Date</label>
+                {{ Display(form.due_date, 'Choose a Date') }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="color">Place</label>
+                {{ Display(form.place, 'Choose a place') }}
+            </div>
+            <div>
+                <label class="form-label" for="Important?">Important?</label>
+                {{ form.important }}
+                <ul>
+                    {% for error in form.important.errors %}
+                    <li>
+                        {{ error }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <label class="form-label" for="completed?">completed?</label>
+                {{ form.completed }}
+                <ul>
+                    {% for error in form.completed.errors %}
+                    <li>
+                        {{ error }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-secondary">{{ form.submit_button }}</button>
+                {{ form.csrf_token }}
+            </div>
+        </form>
+        <a class="btn btn-dark btn-sm" href="/">Back To Home Page</a>
+    </div>
+</div>
+{% endblock %}

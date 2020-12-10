@@ -1,0 +1,27 @@
+{% from 'macro.html' import Display %}
+{% extends "base.html" %}
+
+{% block title %} EDIT List {% endblock %}
+
+{% block content %}
+<div class="row d-inline">
+    <h2 class="text-center mt-5">Edit List</h2>
+    <div class="col-6 offset-3">
+        <form action="{{ url_for('update_list', list_id=list.id)}}" method="POST">
+            <div class="mb-3">
+                <label for="list_name" class="form-label">List name</label>
+                {{ Display(form.list_name, 'list name', autofocus=true) }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="color">Color</label>
+                {{ Display(form.color_choice, 'Choose a Color') }}
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-secondary">{{ form.submit_button }}</button>
+                {{ form.csrf_token }}
+            </div>
+        </form>
+        <a class="btn btn-dark btn-sm" href="/">Back To Home Page</a>
+    </div>
+</div>
+{% endblock %}

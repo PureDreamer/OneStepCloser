@@ -1,0 +1,33 @@
+{% from 'macro.html' import Display %}
+{% extends "base.html" %}
+
+{% block title %} Registration {% endblock %}
+
+{% block content %}
+<div class="row">
+    <h2 class="text-center mt-5">Register</h2>
+    <div class="col-6 offset-3">
+        <form action="{{ url_for('regis') }}" method="POST" novalidate class="validated-form">
+            <div class="mb-3">
+                <label class="form-label" for="first">Name</label>
+                {{ Display(form.full_name, 'Full Name') }}
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                {{ Display(form.email, 'Email', autocomplete="off", autofocus=true) }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                {{ Display(form.password, 'Password') }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="c-password">Confirm Password</label>
+                {{ Display(form.confirm_pass, 'Confirm password') }}
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-secondary">{{ form.submit_button }}</button>
+            </div>
+            {{ form.csrf_token }}
+        </form>
+    </div>
+    {% endblock %}

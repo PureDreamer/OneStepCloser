@@ -1,0 +1,12 @@
+{% macro Display(variables, placeholder) %}
+<div>
+    {{ variables(class='form-control', placeholder=placeholder, **kwargs) }}
+    <ul>
+        {% for error in variables.errors %}
+        <li>
+            {{ error }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endmacro %}

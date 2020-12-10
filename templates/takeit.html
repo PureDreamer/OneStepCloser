@@ -1,0 +1,93 @@
+{% from 'macro.html' import Display %}
+{% extends "base.html" %}
+{% block title %} Missions {% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- <h2 class="text-center mt-5">Add Task</h2> -->
+        <div class="col-md-2 col-sm-2">
+            <form action="{{ url_for('order',list_id=list_id) }}" method="POST">
+                <div>
+                    <label for="mission" class="form-label">Mission to add</label>
+                    {{ Display(f1.mission, 'Task', autocomplete="off", autofocus=true) }}
+                </div>
+                <div>
+                    <label class="form-label" for="Date">Date to finish</label>
+                    {{Display (f1.due_date, 'Choose a date for finish')}}
+                </div>
+                <div>
+                    <label class="form-label" for="place">Place</label>
+                    {{ Display(f1.place, 'Choose a place') }}
+                </div>
+                <div>
+                    <label class="form-label" for="Important?">Important?</label>
+                    {{ f1.important }}
+                    <ul>
+                        {% for error in f1.important.errors %}
+                        <li>
+                            {{ error }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <label class="form-label" for="completed?">completed?</label>
+                    {{ f1.completed }}
+                    <ul>
+                        {% for error in f1.completed.errors %}
+                        <li>
+                            {{ error }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <button class="btn btn-secondary">{{ f1.submit_button }}</button>
+                    {{ f1.csrf_token }}
+                </div>
+            </form>
+        </div>
+        <div class="col-md-10 col-sm-10">
+            {% if tasks %}
+            <div class='{{colorof}}'>
+
+                <div class="table-wrapper-scroll-x my-custom-scrollbar">
+                    <table class="table table-hover ">
+                        <tr>
+                            <th>Mission</th>
+                            <th>Place</th>
+                            <th><a style="color: black;"
+                                    href="{{ url_for('order_by',list_id=list_id, parameter=due_date) }}">Due Date</a>
+                            </th>
+                            <th><a style="color: black;"
+                                    href="{{ url_for('order_by',list_id=list_id, parameter=important) }}">Important</a>
+                            </th>
+                            <th><a style="color: black;"
+                                    href="{{ url_for('order_by',list_id=list_id, parameter=completed) }}">Completed</a>
+                            </th>
+                        </tr>
+                        {% for row in tasks %}
+                        <tr>
+                            <td>{{row.mission}}</td>
+                            <td>{{row.place}}</td>
+                            <td>{{row.due_date}}</td>
+                            <td>{{row.important}}</td>
+                            <td>{{row.completed}}</td>
+
+                            <td>
+                                <a href=" /update/{{row.id}}" class="btn btn-warning btn-xs" data-toggle="modal"
+                                    data-target="#modaledit{{row.id}}">Edit</a>
+                                <a href="/delete/{{row.id}}" class="btn btn-danger btn-xs"
+                                    onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+                            </td>
+                            {% endfor %}
+                            {% endif %}
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

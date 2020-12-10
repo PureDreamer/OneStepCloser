@@ -34,7 +34,7 @@ class User(UserMixin, db.Model):
                           nullable=False)
     email = db.Column(db.String(50),
                       unique=True, nullable=False)
-    password = db.Column(db.String(50),
+    password = db.Column(db.String(1028),
                          nullable=False)
     date_of_birth = db.Column(db.Date)
     city = db.Column(db.String(40))
@@ -89,7 +89,7 @@ class RegForm(FlaskForm):
                                  validators=[InputRequired(
                                      message="Password required"),
                                      EqualTo('password', message="Passwords must match")])
-    submit_button = SubmitField('Make It RAIN!')
+    submiter_button = SubmitField('Make It RAIN!')
 
     def validate_email(self, email):
         user_object = User.query.filter_by(email=email.data).first()
@@ -306,7 +306,7 @@ def regis():
                            the_quoter=random[0], form=reg_form)
 
 
-@app.route("/loginer", methods=['GET', 'POST'])
+@app.route("/login", methods=['GET', 'POST'])
 def loginer():
     log_form = LogForm()
     if log_form.validate_on_submit():

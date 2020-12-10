@@ -180,7 +180,7 @@ def home():
         return redirect(url_for('order', list_id=session['current_list']))
     list_lists = List.query.filter_by(user_id=current_user.id)
     random = get_random_quote()
-    return render_template('home.j2', random_quote=random[1],
+    return render_template('home.html', random_quote=random[1],
                            the_quoter=random[0], form=list_form,
                            list_lists=list_lists)
 
@@ -222,7 +222,7 @@ def order(list_id):
         flash("Task Updated Successfully")
         return redirect(url_for('order', list_id=list_id))
     random = get_random_quote()
-    return render_template('list_missions.j2', random_quote=random[1],
+    return render_template('list_missions.html', random_quote=random[1],
                            the_quoter=random[0], colorof=colorof,
                            list_id=list_id, f1=task_form, f2=update, f3=complete_update, tasks=tasks)
 
@@ -250,7 +250,7 @@ def order_by(list_id):
             list_id=list_id).order_by(desc(Mission.important))
     else:
         tasks = Mission.query.filter_by(list_id=list_id)
-    return render_template('list_missions.j2', random_quote=random[1], the_quoter=random[0], colorof=colorof, list_id=list_id, f1=task_form, f2=update, tasks=tasks)
+    return render_template('list_missions.html', random_quote=random[1], the_quoter=random[0], colorof=colorof, list_id=list_id, f1=task_form, f2=update, tasks=tasks)
 
 
 @app.route('/update_complete/<row_id>', methods=['GET', 'POST'])
@@ -302,7 +302,7 @@ def regis():
         flash('User has been created')
         return redirect(url_for('login'))
     random = get_random_quote()
-    return render_template('reg_form.j2', random_quote=random[1],
+    return render_template('reg_form.html', random_quote=random[1],
                            the_quoter=random[0], form=reg_form)
 
 
@@ -316,7 +316,7 @@ def login():
         flash(f'Welcome {user_name}!')
         return redirect(url_for('home'))
     random = get_random_quote()
-    return render_template('login_form.j2', random_quote=random[1],
+    return render_template('login_form.html', random_quote=random[1],
                            the_quoter=random[0], form=log_form)
 
 
@@ -336,7 +336,7 @@ def profile():
     spirit_animal = ['Spirit Animal', user.spirit_animal]
     user_list = [name, email, date_of_birth, city, spirit_animal]
     random = get_random_quote()
-    return render_template('profile2.j2', random_quote=random[1],
+    return render_template('profile2.html', random_quote=random[1],
                            the_quoter=random[0],
                            user_list=user_list,
                            user=user)
@@ -359,7 +359,7 @@ def update_profile():
         flash('Profile has been updated!')
         return redirect(url_for('profile'))
     random = get_random_quote()
-    return render_template('edit_profile.j2', random_quote=random[1], the_quoter=random[0], form=update, user=user)
+    return render_template('edit_profile.html', random_quote=random[1], the_quoter=random[0], form=update, user=user)
 
 
 @app.route('/update_list/<list_id>', methods=['POST', 'GET'])
@@ -375,7 +375,7 @@ def update_list(list_id):
         flash('List has been updated!')
         return redirect(url_for('home'))
     random = get_random_quote()
-    return render_template('edit_list.j2', random_quote=random[1], the_quoter=random[0], form=update, list=list)
+    return render_template('edit_list.html', random_quote=random[1], the_quoter=random[0], form=update, list=list)
 
 
 @app.route('/update_mission/<mission_id>', methods=['POST', 'GET'])
@@ -395,13 +395,13 @@ def update_mission(mission_id):
         flash('Mission has been updated!')
         return redirect(url_for('order', list_id=mission.list_id))
     random = get_random_quote()
-    return render_template('edit_mission.j2', random_quote=random[1], the_quoter=random[0], form=update, mission=mission)
+    return render_template('edit_mission.html', random_quote=random[1], the_quoter=random[0], form=update, mission=mission)
 
 
 @app.route('/aboutus')
 def about_us():
     random = get_random_quote()
-    return render_template('index.j2', random_quote=random[1], the_quoter=random[0])
+    return render_template('index.html', random_quote=random[1], the_quoter=random[0])
 
 
 if __name__ == "__main__":

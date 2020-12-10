@@ -188,7 +188,7 @@ def home():
 @app.route('/<list_id>', methods=['GET', 'POST'])
 def order(list_id):
     if not current_user.is_authenticated:
-        return redirect(url_for('login'))
+        return redirect(url_for('loginer'))
     tasks = Mission.query.filter_by(list_id=list_id)
     update = UpdateTaskForm()
     task_form = TaskForm()
@@ -230,7 +230,7 @@ def order(list_id):
 @app.route('/<list_id>/orderby/', methods=['GET', 'POST'])
 def order_by(list_id):
     if not current_user.is_authenticated:
-        return redirect(url_for('login'))
+        return redirect(url_for('loginer'))
     update = UpdateTaskForm()
     task_form = TaskForm()
     colorof = List.query.filter_by(id=list_id).first()
@@ -300,14 +300,14 @@ def regis():
         db.session.add(user)
         db.session.commit()
         flash('User has been created')
-        return redirect(url_for('login'))
+        return redirect(url_for('loginer'))
     random = get_random_quote()
     return render_template('regis.html', random_quote=random[1],
                            the_quoter=random[0], form=reg_form)
 
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
+@app.route("/loginer", methods=['GET', 'POST'])
+def loginer():
     log_form = LogForm()
     if log_form.validate_on_submit():
         user_object = User.query.filter_by(email=log_form.email.data).first()
@@ -316,14 +316,14 @@ def login():
         flash(f'Welcome {user_name}!')
         return redirect(url_for('home'))
     random = get_random_quote()
-    return render_template('login.html', random_quote=random[1],
+    return render_template('loginer.html', random_quote=random[1],
                            the_quoter=random[0], form=log_form)
 
 
 @app.route("/logout", methods=['GET'])
 def logout():
     logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('loginer'))
 
 
 @app.route("/profile", methods=['POST', 'GET'])

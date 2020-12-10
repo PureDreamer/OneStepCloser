@@ -7,7 +7,7 @@
 <div class="row d-inline">
     <h2 class="text-center mt-5">Log In</h2>
     <div class="col-6 offset-3">
-        <form action="{{ url_for('login') }}" method="POST" novalidate class="validated-form">
+        <form action="{{ url_for('loginer') }}" method="POST" novalidate class="validated-form">
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 {{ Display(form.email, 'Email', autofocus=true) }}

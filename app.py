@@ -149,8 +149,6 @@ class UpdateUser(FlaskForm):
     change_submit = SubmitField('Update')
 
 
-db.create_all()
-db.session.commit()
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
@@ -407,4 +405,6 @@ def about_us():
 
 
 if __name__ == "__main__":
+    db.create_all()
+    db.session.commit()
     app.run()

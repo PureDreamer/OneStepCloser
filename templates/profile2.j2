@@ -1,5 +1,5 @@
-{% from 'macro.html' import Display %}
-{% extends "base.html" %}
+{% from 'macro.j2' import Display %}
+{% extends "base.j2" %}
 
 {% block title %} Profile {% endblock %}
 
@@ -12,5 +12,5 @@
     </div>
     {% endfor %}
 </div>
-<a class="card-link btn btn-light" href="/profile/edit/">Edit</a>
+<a class="card-link btn btn-light" href="/profile/edit">Edit</a>
 {% endblock %}

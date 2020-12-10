@@ -19,10 +19,10 @@ from wtforms.validators import (DataRequired, Email, EqualTo, InputRequired,
 
 app = Flask(__name__)
 app.static_folder = 'static'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///onestep.db'
 db = SQLAlchemy(app)
 Bootstrap(app)
-app.secret_key = os.environ.get('SECRET_KEY')
+app.secret_key = 'asfasf'
 login = LoginManager(app)
 login.init_app(app)
 
@@ -180,7 +180,7 @@ def home():
         return redirect(url_for('order', list_id=session['current_list']))
     list_lists = List.query.filter_by(user_id=current_user.id)
     random = get_random_quote()
-    return render_template('home.html', random_quote=random[1],
+    return render_template('home.j2', random_quote=random[1],
                            the_quoter=random[0], form=list_form,
                            list_lists=list_lists)
 
@@ -222,7 +222,7 @@ def order(list_id):
         flash("Task Updated Successfully")
         return redirect(url_for('order', list_id=list_id))
     random = get_random_quote()
-    return render_template('list_missions.html', random_quote=random[1],
+    return render_template('list_missions.j2', random_quote=random[1],
                            the_quoter=random[0], colorof=colorof,
                            list_id=list_id, f1=task_form, f2=update, f3=complete_update, tasks=tasks)
 
@@ -251,7 +251,7 @@ def order_by(list_id):
             list_id=list_id).order_by(desc(Mission.important))
     else:
         tasks = Mission.query.filter_by(list_id=list_id)
-    return render_template('list_missions.html', random_quote=random[1],
+    return render_template('list_missions.j2', random_quote=random[1],
                            the_quoter=random[0], colorof=colorof, list_id=list_id,
                            f1=task_form, f2=update, f3=complete_update, tasks=tasks)
 
@@ -305,7 +305,7 @@ def regis():
         flash('User has been created')
         return redirect(url_for('loginer'))
     random = get_random_quote()
-    return render_template('regis.html', random_quote=random[1],
+    return render_template('regis.j2', random_quote=random[1],
                            the_quoter=random[0], form=reg_form)
 
 
@@ -319,7 +319,7 @@ def loginer():
         flash(f'Welcome {user_name}!')
         return redirect(url_for('home'))
     random = get_random_quote()
-    return render_template('loginer.html', random_quote=random[1],
+    return render_template('loginer.j2', random_quote=random[1],
                            the_quoter=random[0], form=log_form)
 
 
@@ -339,7 +339,7 @@ def profile():
     spirit_animal = ['Spirit Animal', user.spirit_animal]
     user_list = [name, email, date_of_birth, city, spirit_animal]
     random = get_random_quote()
-    return render_template('profile2.html', random_quote=random[1],
+    return render_template('profile2.j2', random_quote=random[1],
                            the_quoter=random[0],
                            user_list=user_list,
                            user=user)
@@ -362,7 +362,7 @@ def update_profile():
         flash('Profile has been updated!')
         return redirect(url_for('profile'))
     random = get_random_quote()
-    return render_template('edit_profile.html', random_quote=random[1], the_quoter=random[0], form=update, user=user)
+    return render_template('edit_profile.j2', random_quote=random[1], the_quoter=random[0], form=update, user=user)
 
 
 @app.route('/update_list/<list_id>', methods=['POST', 'GET'])
@@ -378,7 +378,7 @@ def update_list(list_id):
         flash('List has been updated!')
         return redirect(url_for('home'))
     random = get_random_quote()
-    return render_template('edit_list.html', random_quote=random[1], the_quoter=random[0], form=update, list=list)
+    return render_template('edit_list.j2', random_quote=random[1], the_quoter=random[0], form=update, list=list)
 
 
 @app.route('/update_mission/<mission_id>', methods=['POST', 'GET'])
@@ -398,14 +398,14 @@ def update_mission(mission_id):
         flash('Mission has been updated!')
         return redirect(url_for('order', list_id=mission.list_id))
     random = get_random_quote()
-    return render_template('edit_mission.html', random_quote=random[1], the_quoter=random[0], form=update, mission=mission)
+    return render_template('edit_mission.j2', random_quote=random[1], the_quoter=random[0], form=update, mission=mission)
 
 
 @app.route('/aboutus')
 def about_us():
     random = get_random_quote()
-    return render_template('index.html', random_quote=random[1], the_quoter=random[0])
+    return render_template('index.j2', random_quote=random[1], the_quoter=random[0])
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

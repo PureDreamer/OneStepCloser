@@ -96,12 +96,11 @@
                             <td>{{row.completed}}
                                 {% if  not row.completed %}
                                 <form action="/update_complete/{{row.id}}" method="POST">
-                                    <label class="form-label" Name={{row}} for="completed?">completed?</label>
+                                    <label class="form-label" Name={{row.id}}>completed?</label>
                                     {{ f3.completed }}
                                     <button style="font-size: 7px;
                                 border: none;
                                 color: white;
-                                
                                 text-align: center;
                                 text-decoration: none;
                                 display: inline-block;

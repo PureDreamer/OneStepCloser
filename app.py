@@ -185,7 +185,7 @@ def home():
                            list_lists=list_lists)
 
 
-@app.route('/<list_id>', methods=['GET', 'POST'])
+@app.route('/<list_id>', methods=['POST'])
 def order(list_id):
     if not current_user.is_authenticated:
         return redirect(url_for('loginer'))

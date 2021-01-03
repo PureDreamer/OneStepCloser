@@ -187,7 +187,7 @@ def home():
 
 @app.route('/<list_id>', methods=['GET', 'POST'])
 def order(list_id):
-    if not current_user.is_authenticated and not List.query.filter_by(id=list_id, user_id=current_user.id).first():
+    if not current_user.is_authenticated:
         return redirect(url_for('loginer'))
     tasks = Mission.query.filter_by(list_id=list_id)
     update = UpdateTaskForm()
